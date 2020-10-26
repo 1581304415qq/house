@@ -109,8 +109,16 @@
         },
         methods: {
             consult:function(){
-              console.log(this.form)
-              this.$router.push('/consultResult')
+              this.$http.post('/consult',this.form)
+              .then(({data:res})=>{
+                if (res.code===0) {
+              console.log(res)
+                  this.$router.push({path:'/consultResult',name:'/consultResult',params:{res:[res.data,888]}})
+
+    console.log(this.$route.params.res)
+
+                }
+              })
             },
             handleChange:function(){            }
         },

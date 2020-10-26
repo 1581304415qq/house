@@ -28,6 +28,7 @@ const routes = [
     },
     {
         path:'/consultResult',
+        name:'/consultResult',
         component:consultResult
     },
 

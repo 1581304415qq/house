@@ -1,7 +1,7 @@
 <template>
     <div class='home'>
-        <div class="ad">
-            <div>
+        <div class="ad" @mouseover='clearTimer' @mouseout='runInv'>
+            <div class="adImg">
                 <img :src='adImgs[currentIndex]'/>
             </div>
             <div class="page" v-if="this.adImgs.length > 1">
@@ -25,14 +25,19 @@
     	data(){
             return{
                 currentIndex:0,
-                adImgs:[imgsrc,imgsrc,imgsrc]
+                adImgs:['http://127.0.0.1:8090/image/1.jpg',
+                'http://127.0.0.1:8090/image/2.jpg',
+                'http://127.0.0.1:8090/image/3.jpg']
             }
         },
         created(){
            
         },
         mounted(){
-            // this.runInv()
+            this.runInv()
+        },
+        beforeDestroy(){
+            this.clearTimer()
         },
         computed: {
             prevIndex(){
@@ -46,10 +51,15 @@
             consultPage
         },
         methods: {
-            runInv() {
-              this.timer = setInterval(() => {
-                this.gotoPage(this.nextIndex)
-              }, 1000)
+            runInv:function() {
+                if (!this.timer)
+                  this.timer = setInterval(() => {
+                    this.gotoPage(this.nextIndex)
+                  }, 2000)
+            },
+            clearTimer:function(){
+                clearInterval(this.timer)
+                this.timer=null
             },
             gotoPage:function(e){
                 this.currentIndex=e
@@ -73,6 +83,13 @@
    }
    .ad{
         height:6rem;
+   }
+   .adImg{
+    height:100%;
+    width:100%;
+   }
+   .adImg img{
+    height:6rem;
    }
    .home_menu{
         padding:1rem;

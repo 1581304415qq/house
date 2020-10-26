@@ -20,7 +20,14 @@
         },
         methods: {
             login:function(){
-                this.$router.push('/home')
+                this.$http.post('/login',{username:'11',password:'11'})
+                .then(({data:res})=>{
+                    console.log(res)
+                    res.code===0 && this.$router.push('/home')
+                })
+                .catch(e=>{
+
+                })
             }
         },
     }

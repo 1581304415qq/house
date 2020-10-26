@@ -8,13 +8,13 @@
     <div class="page_title">{{pageTitle}}</div>
   </div>
   <div class="menu">
-    <div class="menu_item right select" @click='select(0)'><div class="menu_item_text select">{{menuTotal}}</div></div>
-    <div class="menu_item left" @click='select(1)'><div class="menu_item_text">{{menuPrice}}</div></div>
+    <div :class='itemStyle[0]' @click='select(0)'><div class="menu_item_text">{{menuTotal}}</div></div>
+    <div :class='itemStyle[1]' @click='select(1)'><div class="menu_item_text">{{menuPrice}}</div></div>
   </div>
   <div class="estimate_box">
     <div class="estimate">
-    <div>{{showData}}</div>
-    <div>{{unit}}</div>
+    <div>{{showData[currentMenu]}}</div>
+    <div>{{currentMenu===0?unitTotal:unitPrice}}</div>
     </div>
   </div>
   <div class="service">
@@ -27,23 +27,33 @@
 <script>
   import navigationBar from '../components/navigationBar.vue'
   export default {
-  name: 'app',
+  name: 'consultResult',
   data () {
     return {
       menuTotal:'房产总价',
       menuPrice:'房产单价',
       pageTitle:'您的房产评估价为:',
-      unit:'元/套',
+      unitTotal:'元/套',
+      unitPrice:'元/平米',
       serviceText:'我要申请贷款>',
       footer:'注：以上价格仅供参考，具体房屋估价以我行网点与您共同确认后的最终价格为准，房产估价未扣除出让金与法定优先受偿款',
 
-      showData: 573000
+      showData: this.$route.params.res||[],
+      currentMenu:0,
+      itemStyle:["menu_item left select","menu_item right"]
     }
+  },
+  mounted(){
+    console.log(this.$route.params)
   },
   methods:{
     select:function(e){
-
-    }
+      this.currentMenu=e
+      if (e===0)
+      this.itemStyle=["menu_item left select","menu_item right"]
+      else
+      this.itemStyle=["menu_item left","menu_item right select"]
+    },
   },
   components:{
     navigationBar
@@ -98,10 +108,10 @@
   background-color: white;
 }
 .menu_item.left{
-  border-radius: 0 5px 5px 0;
+  border-radius: 5px 0 0 5px;
 }
 .menu_item.right{
-  border-radius: 5px 0 0 5px;
+  border-radius: 0 5px 5px 0;
 }
 .menu_item:before{
   position: absolute;
