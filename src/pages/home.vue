@@ -63,7 +63,6 @@
             },
             gotoPage:function(e){
                 this.currentIndex=e
-                console.log(e)
             },
             navigateTo:function(e){
                 this.$router.push('/consult')
@@ -83,6 +82,8 @@
    }
    .ad{
         height:6rem;
+        margin-top: 1rem;
+
    }
    .adImg{
     height:100%;
