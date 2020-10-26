@@ -4,23 +4,33 @@ import VueRouter from "vue-router";
 // 引入组件
 import login from "../pages/login.vue";
 import tabView from '../pages/tabView.vue'
-import consultPage from '../pages/consult.vue'
+import consult from '../pages/consult.vue'
+import consultResult from '../pages/consultResult.vue'
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter);
 
 const routes = [
     {
+        path:'/',
+        component:tabView
+    },
+    {
         path: "/login",
         component: login
     },
     {
-    	path:'/',
-    	component:tabView
+        path:'/home',
+        redirect:'/'
     },
     {
         path:'/consult',
-        component:consultPage
-    }
+        component:consult
+    },
+    {
+        path:'/consultResult',
+        component:consultResult
+    },
+
 ]
 
 var router =  new VueRouter({

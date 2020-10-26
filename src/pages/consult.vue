@@ -1,22 +1,17 @@
 <template>
     <div class='consult'>
-        <div v-if='!isConsult'>
+        <navigation-bar/>
         <div>
             <div>所在小区</div>
-            <el-select v-model="value" placeholder="请选择">
-            <el-option
-              v-for="item in address"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+            <el-cascader
+              v-model="form.road"
+              :options="options"></el-cascader>
         </div>
         <div>详细地址
-            <el-input v-model="input" placeholder="请输入内容"></el-input>
+            <el-input v-model="form.detailAddress" placeholder="请输入内容"></el-input>
         </div>
         <div>土地级别</div>
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="form.level" placeholder="请选择">
             <el-option
               v-for="item in address"
               :key="item.value"
@@ -25,7 +20,7 @@
             </el-option>
           </el-select>
         <div>房产类型 
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="form.type" placeholder="请选择">
             <el-option
               v-for="item in address"
               :key="item.value"
@@ -36,63 +31,72 @@
         </div>
         <div>是否为电梯房
             <div>
-              <el-radio v-model="radio" label="1">备选项</el-radio>
-              <el-radio v-model="radio" label="2">备选项</el-radio>
+              <el-radio v-model="form.elevator" label="1">备选项</el-radio>
+              <el-radio v-model="form.elevator" label="2">备选项</el-radio>
             </div>
         </div>
         <div>建成年份
-            <el-input></el-input>
+            <el-input v-model='form.year'></el-input>
         </div>
         <div>产权证面积
-            <el-input></el-input>
+            <el-input v-model='form.propertyarea'></el-input>
         </div>
         <div>公摊面积
-            <el-input></el-input>
+            <el-input v-model='form.publicarea'></el-input>
         </div>
         <div>土地面积
-            <el-input></el-input>
+            <el-input v-model='form.area'></el-input>
         </div>
         <div>是否为学区房
             <div>
-              <el-radio v-model="radio" label="1">备选项</el-radio>
-              <el-radio v-model="radio" label="2">备选项</el-radio>
+              <el-radio v-model="form.schooldistrict" label="1">备选项</el-radio>
+              <el-radio v-model="form.schooldistrict" label="2">备选项</el-radio>
             </div>
         </div>
 
-        <el-button type="primary" @click='consult'>估价</el-button>
-</div>
-    <div v-if='isConsult'>
-        <consult-result></consult-result>
-    </div>
+        <el-button id="consult_button" type="primary" @click='consult'>估价</el-button>
     </div>
 </template>
 
 <script>
     import consultResult from './consultResult.vue'
+    import navigationBar from '../components/navigationBar.vue'
     export default {
     	data(){
             return{
+              options: [{
+                value: 'zhinan',
+                label: '指南',
+                children: [{
+                  value: 'shejiyuanze',
+                  label: '设计原则',
+                }]}],
                 address: [{
-                  value: '选项1',
+                  value: '1',
                   label: '黄金糕'
                 }, {
-                  value: '选项2',
+                  value: '2',
                   label: '双皮奶'
                 }, {
-                  value: '选项3',
+                  value: '3',
                   label: '蚵仔煎'
                 }, {
-                  value: '选项4',
+                  value: '4',
                   label: '龙须面'
                 }, {
-                  value: '选项5',
+                  value: '5',
                   label: '北京烤鸭'
                 }, {
-                  value: '选项6',
+                  value: '6',
                   label: '北京烤鸭'
                 }],
                 value:'',
-                isConsult:false,
+
+                input:'',
+                radio:'',
+                form:{road:[],detailAddress:'',level:'',type:'',elevator:false,
+                      year:'2020',area:0,publicarea:0,propertyarea:0,schooldistrict:false
+                }
             }
         },
         created(){
@@ -105,11 +109,14 @@
         },
         methods: {
             consult:function(){
-                this.isConsult=true
-            }
+              console.log(this.form)
+              this.$router.push('/consultResult')
+            },
+            handleChange:function(){            }
         },
         components:{
             consultResult,
+            navigationBar
         }
     }
 </script>
@@ -120,5 +127,9 @@
         top:0;
         height: 100%;
         width: 100%;
+   }
+
+   #consult_button{
+        background-color:#cf4233;
    }
 </style>

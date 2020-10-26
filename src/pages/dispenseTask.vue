@@ -18,6 +18,9 @@
         },
         methods: {
         },
+        components:{
+
+        },
     }
 </script>
 

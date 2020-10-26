@@ -1,6 +1,9 @@
 
 <template>
-<div class="container">
+<div class="consultResult">
+
+  <navigation-bar class="navigation_bar"/>
+  <div class="container">
   <div class="title_box">
     <div class="page_title">{{pageTitle}}</div>
   </div>
@@ -19,9 +22,10 @@
   </div>
   <div class="footer">{{footer}}</div>
 </div>
-
+</div>
 </template>
 <script>
+  import navigationBar from '../components/navigationBar.vue'
   export default {
   name: 'app',
   data () {
@@ -42,12 +46,19 @@
     }
   },
   components:{
+    navigationBar
   }
 }
 </script>
 
 <style>
-  
+.navigation_bar{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  z-index:999;
+}
 .container{
   position:absolute;
   top:0;

@@ -1,10 +1,10 @@
 <template>
   <div id="tab_view">
-    <home-page v-if='isHome'/>
+    <home-page v-if='currentPage===0'/>
     <user-page v-else/>
     <div class="tab_bar">
-    <div class='view_item' @click="goto('/home')">主页</div>
-    <div class='view_item' @click="goto('/user')">用户</div>
+    <div :class='getItemStyle(0)' @click="goto('/home')">主页</div>
+    <div :class='getItemStyle(1)' @click="goto('/user')">用户</div>
     </div>
   </div>
 </template>
@@ -16,14 +16,21 @@ export default {
   name: 'tab_view',
   data () {
     return {
-      isHome:true,
+      currentPage:0,
+      viewItemStyles:['view_item','select'],
     }
   },
   methods:{
     goto:function(e){
-      if (e==='/home') this.isHome=true
-      else if (e==='/user') this.isHome=false
+      if (e==='/home') this.currentPage=0
+      else if (e==='/user') this.currentPage=1
+    },
+    getItemStyle(e){
+      if (e===this.currentPage)return ['view_item','select']
+        else return 'view_item'
     }
+  },
+  computed:{
   },
   components:{
     homePage,
@@ -44,6 +51,11 @@ export default {
 }
 .view_item{
   flex-grow: 1;
+  height:100%;
+  font-size:.7rem;
+}
+.select{
+  background-color:#cf4233;
 }
 h1, h2 {
   font-weight: normal;

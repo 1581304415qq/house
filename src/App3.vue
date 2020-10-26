@@ -25,6 +25,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c3b0a0), color-stop(100%,#d9cdc3));
 }
 h1, h2 {
   font-weight: normal;
