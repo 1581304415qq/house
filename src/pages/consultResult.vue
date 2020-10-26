@@ -46,12 +46,13 @@
 }
 </script>
 
-<style type="text/css">
+<style>
   
 .container{
+  position:absolute;
+  top:0;
   display: flex;
   flex-direction: column;
-  /*justify-content: center;*/
   align-items: center;
   height: 100vh;
   background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c3b0a0), color-stop(100%,#d9cdc3));

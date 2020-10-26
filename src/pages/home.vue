@@ -7,10 +7,16 @@
             <el-button type="primary" @click='navigateTo(0)'>房价查询</el-button>   
         </div>
     </div>
-    <div v-else>else</div>
+    <div v-else>
+        <div>
+            <div  @click='navigateTo(1)'>back</div>
+            <consult-page></consult-page>
+        </div>
+    </div>
 </template>
 
 <script>
+    import consultPage from './consult.vue'
     export default {
     	data(){
             return{
@@ -25,10 +31,16 @@
         mounted(){
         },
         computed: {
+            
+        },
+        components:{
+            consultPage
         },
         methods: {
             navigateTo:function(e){
-                console.log('goto')
+                // this.$router.push('/consult')
+              if (e===0) this.isShow=false
+              else if (e===1) this.isShow=true
             }
         },
     }
